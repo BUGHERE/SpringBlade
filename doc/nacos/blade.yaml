@@ -1,0 +1,120 @@
+#服务器配置
+server:
+  undertow:
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    buffer-size: 1024
+    # 是否分配的直接内存
+    direct-buffers: true
+    # 线程配置
+    threads:
+      # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+      io: 16
+      # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+      worker: 400
+
+#spring配置
+spring:
+  cloud:
+    sentinel:
+      eager: true
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
+    livereload:
+      port: 23333
+
+#feign配置
+feign:
+  sentinel:
+    enabled: true
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+
+#对外暴露端口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+#springdoc-openapi配置
+springdoc:
+  default-flat-param-object: true
+
+#knife4j配置
+knife4j:
+  #启用
+  enable: true
+  #基础认证
+  basic:
+    enable: false
+    username: blade
+    password: blade
+  #增强配置
+  setting:
+    enableSwaggerModels: true
+    enableDocumentManage: true
+    enableHost: false
+    enableHostText: http://localhost
+    enableRequestCache: true
+    enableFilterMultipartApis: false
+    enableFilterMultipartApiMethodType: POST
+    language: zh_cn
+    enableFooter: false
+    enableFooterCustom: true
+    footerCustomContent: Copyright © 2024 SpringBlade All Rights Reserved
+
+#swagger配置信息
+swagger:
+  title: SpringBlade 接口文档系统
+  description: SpringBlade 接口文档系统
+  version: 4.3.0
+  license: Powered By SpringBlade
+  licenseUrl: https://bladex.cn
+  terms-of-service-url: https://bladex.cn
+  contact:
+    name: smallchill
+    email: bladejava@qq.com
+    url: https://gitee.com/smallc
+
+#blade配置
+blade:
+  auth:
+    #使用 @org.springblade.test.Sm2KeyGenerator 获取,用于国密sm2验签,需和前端保持一致
+    public-key: 04d19602f23e0acf78f32da1200deb1229d27752c8e6671297ecc4adb7dea35d0ad6a4d419148253453888b5fcb9d373a159d470b17f095f30b935b4753ee1f63a
+    #使用 @org.springblade.test.Sm2KeyGenerator 获取,用于国密sm2解密,前端无需配置
+    private-key: 00a0303ae6cb15c9c1a7e3a339dfe17df7297feea64f8925c5bf8ed51eb2d6d77c
+#加密前: admin
+#加密后: 042fd0e400655d4c78cdaff2a1815ab97dd9c2503c467f03d0878374b25e412e900b0d3642af084f3ff46cc76a94b0c2bbab4be52fda395fb5dfba35fa2c4905d3fe2a382ccc8c40ddb5500fd4b0f392841eb4b960119ae034bb5bd5a1c32d7de1260971fe8c
+#解密后: admin
+#  saber base64密码：c2FiZXI6c2FiZXJfc2VjcmV0
+#  sword base64密码；c3dvcmQ6c3dvcmRfc2VjcmV0
+  token:
+    #使用 @org.springblade.test.SignKeyGenerator 获取
+    sign-key: 7Nqvw8DyjQzgvxKmasgxRBlXdEUueTJE
+    #使用 @org.springblade.test.SignKeyGenerator 获取
+    aes-key: PVRJoaztdvFR5jOIl3bHa2ZcOUffx33l
+  xss:
+    enabled: true
+    skip-url:
+      - /weixin
+  secure:
+    skip-url:
+      - /test/**
+    client:
+      - client-id: sword
+        path-patterns:
+          - /sword/**
+      - client-id: saber
+        path-patterns:
+          - /saber/**
+  tenant:
+    column: tenant_id
+    tables:
+      - blade_notice
+
