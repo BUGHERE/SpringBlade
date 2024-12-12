@@ -2,12 +2,15 @@ package org.springblade.demo.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.log.logger.BladeLogger;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.annotation.PreAuth;
 import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.jackson.JsonUtil;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.demo.entity.Blog;
 import org.springblade.demo.service.BlogService;
@@ -99,12 +102,14 @@ public class DemoController {
 		List<Blog> list = blogService.list(Condition.getQueryWrapper(blog, Blog.class).lambda().orderByDesc(Blog::getBlogDate));
 		return R.data(list);
 	}
+	private BladeLogger logger;
 	/**
 	 * 分页查询
 	 */
 	@GetMapping("page")
 	public R<IPage<Blog>> page(@RequestParam Map<String, Object> blog, Query query) {
 		IPage<Blog> pages = blogService.page(Condition.getPage(query), Condition.getQueryWrapper(blog, Blog.class));
+		logger.info("detail_test", JsonUtil.toJson(pages));
 		return R.data(pages);
 	}
 }
