@@ -8,3 +8,11 @@ spring:
     url: ${blade.datasource.dev.url}
     username: ${blade.datasource.dev.username}
     password: ${blade.datasource.dev.password}
+
+# 租户表维护
+blade:
+  tenant:
+    column: tenant_id
+    tables:
+      - tb_news
+      - tb_goods

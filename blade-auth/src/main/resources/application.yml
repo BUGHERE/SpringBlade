@@ -6,8 +6,8 @@ social:
       client-secret: 233************************************
       redirect-uri: ${social.domain}/oauth/redirect/github
     GITEE:
-      client-id: 233************
-      client-secret: 233************************************
+      client-id: 18b24d068c1b7b6f836c97f5f49502e52448d99efd0ac7db189510ee1744bc15
+      client-secret: acbb72d58ab8457ad3e51c72fd99b1b5468570b5dad5a37ec85818b36aeb1f05
       redirect-uri: ${social.domain}/oauth/redirect/gitee
     WECHAT_OPEN:
       client-id: 233************
