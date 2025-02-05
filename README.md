@@ -1,6 +1,6 @@
 ## 介绍
 
-- SpringBlade微服务开发平台，技术栈包含 SpringCloud + JWT + MySQL + Redis + MyBatis + Elasticsearch
+- SpringBlade微服务开发平台，技术栈包含 SpringCloud + JWT + MySQL + Redis + MyBatis
     - 统一网关鉴权
     - 集成Sentinel从流量控制、熔断降级、系统负载等多个维度保护服务的稳定性
     - 注册中心、配置中心选型Nacos
